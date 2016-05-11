@@ -1,0 +1,11 @@
+[Unit]
+Description=Home Assistant
+After=network.target
+
+[Service]
+Type=simple
+User=hass
+ExecStart=/srv/hass/hass_venv/bin/hass -c /home/hass/
+
+[Install]
+WantedBy=multi-user.target

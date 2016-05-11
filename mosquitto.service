@@ -1,0 +1,18 @@
+[Unit]
+Description=Mosquitto MQTT Broker daemon
+ConditionPathExists=/etc/mosquitto/mosquitto.conf
+After=network.target
+Requires=network.target
+
+[Service]
+Type=forking
+RemainAfterExit=no
+StartLimitInterval=0
+PIDFile=/var/run/mosquitto.pid
+ExecStart=/usr/local/sbin/mosquitto -c /etc/mosquitto/mosquitto.conf -d
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
