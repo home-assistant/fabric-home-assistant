@@ -4,6 +4,8 @@
  ![image](images/hass_icon.png) ![image](images/plus.png) ![image](images/fabric_icon.png) 
  
  Easily deploy [Home-Assistant](http://home-assistant.io) along with a websockets enabled build of [Mosquitto](https://github.com/eclipse/mosquitto) to your Raspberry Pi with Fabric. 
+ 
+ The fabric script deploys hass in a virtualenv, and is run by a service account. This build is done in alignment with the install instructions found on Home-Assistant's website. The script also installs hass and Mosquitto as a Systemd service for you with the supplied .service files.
 
 **What is [Fabric](http://www.fabfile.org)?**
  The official README says:
