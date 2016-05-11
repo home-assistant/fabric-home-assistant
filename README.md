@@ -22,3 +22,8 @@
  Clone the contents: ``` git clone https://github.com/jbags81/fabric-home-assistant.git ```
  
  Run the "deploy" function: ``` fab deploy ```
+ 
+ 
+ 
+ 
+ *Tested on pi3 and Debian 8
