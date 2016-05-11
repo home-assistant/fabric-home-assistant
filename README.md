@@ -1,7 +1,7 @@
 # fabric-home-assistant
 
 
- ![image](hass_icon.png) ![image](plus.png) ![image](fabric_icon.png) 
+ ![image](images/hass_icon.png) ![image](images/plus.png) ![image](images/fabric_icon.png) 
  
  Easily deploy [Home-Assistant](http://home-assistant.io) along with a websockets enabled build of [Mosquitto](https://github.com/eclipse/mosquitto) to your Raspberry Pi with Fabric. 
 
