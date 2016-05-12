@@ -32,8 +32,6 @@ def update_upgrade():
 
 def setup_dirs():
     """ Create all needed directories and change ownership """
-    with cd("/home/pi/"):
-        run("mkdir -p src")
     with cd("/srv"):
         sudo("mkdir hass")
         sudo("chown hass hass")
@@ -80,20 +78,20 @@ def create_venv():
 def setup_mosquitto():
     """ Build and Install Mosquitto """
     with cd("/tmp"):
-        run("curl -O https://libwebsockets.org/git/libwebsockets/snapshot/libwebsockets-1.4-chrome43-firefox-36.tar.gz")
-        run("tar xvf libwebsockets*")
+        sudo("curl -O https://libwebsockets.org/git/libwebsockets/snapshot/libwebsockets-1.4-chrome43-firefox-36.tar.gz")
+        sudo("tar xvf libwebsockets*")
         with cd("libwebsockets*"):
-            run("mkdir build")
+            sudo("mkdir build")
             with cd("build"):
-                run("cmake ..")
+                sudo("cmake ..")
                 sudo("make install")
                 sudo("ldconfig")
-                with cd("/home/pi/src"):
-                    run("wget http://mosquitto.org/files/source/mosquitto-1.4.4.tar.gz")
-                    run("tar zxvf mosquitto-1.4.4.tar.gz")
+                with cd("/srv/hass/src"):
+                    sudo("wget http://mosquitto.org/files/source/mosquitto-1.4.4.tar.gz")
+                    sudo("tar zxvf mosquitto-1.4.4.tar.gz")
                     with cd("mosquitto-1.4.4"):
-                        run("sed -i 's/WITH_WEBSOCKETS:=no.*/WITH_WEBSOCKETS:=yes/' ~/src/mosquitto-1.4.4/config.mk")
-                        run("make")
+                        sudo("sed -i 's/WITH_WEBSOCKETS:=no.*/WITH_WEBSOCKETS:=yes/' /srv/hass/src/mosquitto-1.4.4/config.mk")
+                        sudo("make")
                         sudo("make install")
                         with cd("/etc/mosquitto"):
                             put("mosquitto.conf", "mosquitto.conf", use_sudo=True)
