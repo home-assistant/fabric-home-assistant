@@ -22,7 +22,7 @@
  Python makes automating the build of things effortless. 
  Since I use Python3 mostly, and the offical repo's don't contain a py3 version yet, you'll need to use this version for now: [https://github.com/mathiasertl/fabric.git](https://github.com/mathiasertl/fabric)
  
-###  To Run:
+###  Usage:
  
  Simply install fabric locally:
  ```pip install fabric``` (for python 3 support, install fabric3 [https://github.com/mathiasertl/fabric.git](https://github.com/mathiasertl/fabric))
@@ -32,7 +32,7 @@
  Clone the contents: ``` git clone https://github.com/jbags81/fabric-home-assistant.git ```
  Add the host info from before to the beginning of ```fabfile.py```
  
- Run the "deploy" function to build a new home-assistant server: ``` fab deploy ```
+ Run the "deploy" function to build a new home-assistant server: ``` fab deploy ``` then reboot. Everything will start at boot, and Home-Assistant is accessible from **http://your_server_ip:8123**
  
  Fabric allows any of the underlying functions to be ran individually as well. run ``` fab -l ``` to see a list of all callable jobs. 
  
@@ -41,4 +41,4 @@
  
  
  
-**Tested on pi-3 and Debian 8**
+**Tested with Raspbian Jessie, Jessie-Lite, and Debian 8**
