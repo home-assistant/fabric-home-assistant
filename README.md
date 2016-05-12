@@ -3,7 +3,7 @@
 
  ![image](images/hass_icon.png) ![image](images/plus.png) ![image](images/fabric_icon.png) 
  
- Easily deploy [Home-Assistant](http://home-assistant.io) and it's componants from a fresh Raspbian Jessie or Debian 8 install.  The deploy script will do the following:
+ Easily deploy [Home-Assistant](http://home-assistant.io) and it's components from a fresh Raspbian Jessie/Jessie-Lite or Debian 8 install.  The ```fab deploy``` script will do the following:
 *  Create needed directories
 *  Create needed service accounts
 *  Install OS and Python dependencies
@@ -41,4 +41,4 @@
  
  
  
-**Tested on pi3 and Debian 8**
+**Tested on pi-3 and Debian 8**
