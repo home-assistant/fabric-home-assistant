@@ -37,6 +37,9 @@ def setup_dirs():
     with cd("/srv"):
         sudo("mkdir hass")
         sudo("chown hass hass")
+        with cd("hass"):
+            sudo("mkdir -p src")
+            sudo("chown hass:hass src")
     with cd("/home"):
         sudo("mkdir -p hass")
         sudo("chown hass:hass hass")
@@ -99,6 +102,17 @@ def setup_homeassistant():
     """ Activate VirtualEnv, Install Home-Assistant """
     sudo("source /srv/hass/hass_venv/bin/activate && pip3 install homeassistant", user="hass")
 
+def setup_pyzwave():
+    """ Install python-openzwave and configure """
+    sudo("apt-get install -y cython3 libudev-dev python3-sphinx python3-setuptools")
+    sudo("source /srv/hass/hass_venv/bin/activate && pip3 install --upgrade cython", user="hass")
+    with cd("/srv/hass/src"):
+        sudo("git clone https://github.com/OpenZWave/python-openzwave.git", user="hass")
+        with cd("python-openzwave"):
+            sudo("git checkout python3", user="hass")
+            sudo("source /srv/hass/hass_venv/bin/activate && PYTHON_EXEC=`which python3` make build", user="hass")
+            sudo("source /srv/hass/hass_venv/bin/activate && PYTHON_EXEC=`which python3` make install", user="hass")
+
 def setup_services():
     """ Enable applications to start at boot via systemd """
     with cd("/etc/systemd/system/"):
@@ -135,6 +149,9 @@ def deploy():
 
     ## Activate venv, install Home-Assistant ##
     setup_homeassistant()
+
+    ## Activate venv, build and install python-openzwave ##
+    setup_pyzwave()
 
     ## Make apps start at boot ##
     setup_services()
