@@ -58,6 +58,4 @@
 **Tested with Raspbian Jessie, Jessie-Lite, and Debian 8 (username and path modifications needed)**
  
  
- 
- 
-**Tested with Raspbian Jessie, Jessie-Lite, and Debian 8**
+
