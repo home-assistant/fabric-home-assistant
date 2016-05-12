@@ -1,7 +1,7 @@
 # fabric-home-assistant
 
 
- ![image](images/hass_icon.png) ![image](images/plus.png) ![image](images/fabric_icon.png) 
+ ![image](images/hass_plu_fabric_logo.png)
  
   Easily deploy a complete Home-Assistant server, complete with Websocket MQTT and Z-Wave support out of the box using Fabric! 
  
