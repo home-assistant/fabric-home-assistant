@@ -30,7 +30,7 @@
  Ensure you're able to SSH into the target server. 
  
  Clone the contents: ``` git clone https://github.com/jbags81/fabric-home-assistant.git ```
- Add the host info from before to the beginning of ```fabfile.py```
+ Add the host info from before to the beginning of ```fabfile.py``` The repo contains a pre-configured default mosquitto.conf file. The only addition is an added listener for websockets listening on 9001. It also contains preconfigured systemd service profiles. For the fabric script to run successfully, it has to be ran from the root of the cloned repo. 
  
  Run the "deploy" function to build a new home-assistant server: ``` fab deploy ``` then reboot. Everything will start at boot, and Home-Assistant is accessible from **http://your_server_ip:8123**
  
