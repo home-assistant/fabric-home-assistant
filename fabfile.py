@@ -31,7 +31,7 @@ def update_upgrade():
 
 
 def setup_dirs():
-    """ Create all needed directories """
+    """ Create all needed directories and change ownership """
     with cd("/home/pi/"):
         run("mkdir -p src")
     with cd("/srv"):
@@ -52,7 +52,7 @@ def setup_users():
     sudo("usermod -d /home/hass hass")
 
 def install_syscore():
-    """ Download and install python3. """
+    """ Download and install Host Dependencies. """
     sudo("aptitude install -y python3")
     sudo("aptitude install -y python3-pip")
     sudo("aptitude install -y git")
@@ -99,11 +99,11 @@ def setup_mosquitto():
                             put("mosquitto.conf", "mosquitto.conf", use_sudo=True)
 
 def setup_homeassistant():
-    """ Activate VirtualEnv, Install Home-Assistant """
+    """ Activate Virtualenv, Install Home-Assistant """
     sudo("source /srv/hass/hass_venv/bin/activate && pip3 install homeassistant", user="hass")
 
 def setup_pyzwave():
-    """ Install python-openzwave and configure """
+    """ Activate Virtualenv, Install python-openzwave"""
     sudo("apt-get install -y cython3 libudev-dev python3-sphinx python3-setuptools")
     sudo("source /srv/hass/hass_venv/bin/activate && pip3 install --upgrade cython", user="hass")
     with cd("/srv/hass/src"):
