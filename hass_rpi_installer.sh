@@ -5,6 +5,9 @@
 # Last revised 5/15/2016
 
 ## Run pre-install apt package dependency checks ##
+
+sudo apt-get update
+
 PKG_PYDEV=$(dpkg-query -W --showformat='${Status}\n' python-dev|grep "install ok installed")
 echo Checking for python-dev: $PKG_PYDEV
 if [ "" == "$PKG_PYDEV" ]; then
