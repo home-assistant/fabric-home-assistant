@@ -239,7 +239,7 @@ def deploy():
     setup_services()
 
     ## Setup MOTD Banner ##
-    setup_motd
+    setup_motd()
 
     ## Reboot the system ##
     reboot()
@@ -280,7 +280,7 @@ def deploy_novenv():
     setup_services_novenv()
 
     ## Setup MOTD Banner ##
-    setup_motd
+    setup_motd()
 
     ## Reboot the system ##
     reboot()
