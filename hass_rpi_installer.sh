@@ -34,5 +34,5 @@ sudo /usr/bin/pip install fabric
 git clone https://github.com/jbags81/fabric-home-assistant.git
 
 ## Ready to go, kick off installer script ##
-chmod +x rpi_installer.py
+chmod +x /home/pi/fabric-home-assistant/rpi_installer.py
 /usr/bin/python /home/pi/fabric-home-assistant/rpi_installer.py
