@@ -28,7 +28,6 @@
  The Home Assistant configuration is located at ```/home/hass```. The virtualenv with the Home Assistant installation is located at ```/srv/hass/hass_venv```.
 
  The All-In-One installer script will do the following automatically:
-
  *  Create all needed directories
  *  Create needed service accounts
  *  Install OS and Python dependencies
