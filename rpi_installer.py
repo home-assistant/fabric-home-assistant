@@ -50,14 +50,14 @@ try:
         print("Your Raspberry Pi will reboot when the installer is complete.")
         time.sleep(3)
         print("Install is starting...")
-        os.chdir(/home/pi/fabric-home-assistant/)
+        os.chdir("/home/pi/fabric-home-assistant/")
         start_install1 = 'fab deploy -H localhost'
         os.system(start_install1)
     elif a== 2:
         print("Your Raspberry Pi will reboot when the installer is complete.")
         time.sleep(3)
         print("Install is starting...")
-        os.chdir(/home/pi/fabric-home-assistant/)
+        os.chdir("/home/pi/fabric-home-assistant/")
         start_install2 = 'fab deploy_novenv -H localhost'
         os.system(start_install2)
 except:
