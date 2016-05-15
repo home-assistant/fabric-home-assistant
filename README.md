@@ -3,12 +3,16 @@
 
  ![image](images/hass_plu_fabric_logo.png)
 
- The "[Raspberry Pi All-In-One Installer](https://github.com/jbags81/fabric-home-assistant)" deploy a complete Home Assistant server including support for MQTT with websocket support and Z-Wave using [Fabric](http://www.fabfile.org/).
+ The "[Raspberry Pi All-In-One Installer](https://github.com/jbags81/fabric-home-assistant)" will deploy a complete Home Assistant server including support for MQTT with websocket support and Z-Wave, including the open-zwave-conrol-panel.
 
  Requirements before installation:
 
  * You have a Raspberry Pi with a fresh installation of [Raspbian Jessie/Jessie Lite](https://www.raspberrypi.org/downloads/raspbian/) or Debian 8 connected to your network.
  * You are able to SSH into your Raspberry Pi.
+ * You've completed all typical new raspberry pi install tasks:
+  - Expanded the filesystem
+  - Set proper locale and time
+  - etc...
 
 
  Installation instructions:
