@@ -14,7 +14,7 @@
  Installation instructions:
 
   1. SSH into your raspberry pi
-  2. Run '''wget -Nnv https://raw.githubusercontent.com/jbags81/fabric-home-assistant/master/hass_rpi_installer.sh && bash hass_rpi_installer.sh;'''
+  2. Run ``` wget -Nnv https://raw.githubusercontent.com/jbags81/fabric-home-assistant/master/hass_rpi_installer.sh && bash hass_rpi_installer.sh; ```
   3. At the prompt, choose 1 to use a virtualenv or 2 to install without one. If you're unsure, choose option 1.
   4. Installation will take approx 1 hour running on a Raspberry Pi 3.
 
