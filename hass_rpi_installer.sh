@@ -25,5 +25,8 @@ if [ "" == "$PKG_GIT" ]; then
   echo "No git. Setting up git."
   sudo apt-get --force-yes --yes install git
 fi
+
+git clone https://github.com/jbags81/fabric-home-assistant.git
+
 ## Ready to go, kick off installer script ##
-python rpi_installer.py
+/home/pi/fabric-home-assistant/python rpi_installer.py
