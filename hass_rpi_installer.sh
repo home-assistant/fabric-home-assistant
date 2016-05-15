@@ -32,4 +32,4 @@ fi
 git clone https://github.com/jbags81/fabric-home-assistant.git
 
 ## Ready to go, kick off installer script ##
-/home/pi/fabric-home-assistant/python rpi_installer.py
+python /home/pi/fabric-home-assistant/rpi_installer.py
