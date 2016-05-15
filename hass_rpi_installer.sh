@@ -29,6 +29,8 @@ if [ "" == "$PKG_GIT" ]; then
   sudo apt-get --force-yes --yes install git
 fi
 
+/usr/bin/pip install fabric
+
 git clone https://github.com/jbags81/fabric-home-assistant.git
 
 ## Ready to go, kick off installer script ##
