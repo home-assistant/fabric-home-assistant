@@ -14,14 +14,14 @@
  Installation instructions:
 
   1. SSH into your raspberry pi
-  2. Run: 'wget -Nnv https://raw.githubusercontent.com/jbags81/fabric-home-assistant/master/hass_rpi_installer.sh && bash hass_rpi_installer.sh;'
+  2. Run '''wget -Nnv https://raw.githubusercontent.com/jbags81/fabric-home-assistant/master/hass_rpi_installer.sh && bash hass_rpi_installer.sh;'''
   3. At the prompt, choose 1 to use a virtualenv or 2 to install without one. If you're unsure, choose option 1.
   4. Installation will take approx 1 hour running on a Raspberry Pi 3.
 
 
  Once rebooted, your Raspberry Pi will be up and running with Home Assistant. You can access it at **http://your_raspberry_pi_ip:8123**.
 
- The Home Assistant configuration is located at `/home/hass`. The virtualenv with the Home Assistant installation is located at `/srv/hass/hass_venv`.
+ The Home Assistant configuration is located at ```/home/hass```. The virtualenv with the Home Assistant installation is located at ```/srv/hass/hass_venv```.
 
  The All-In-One installer script will do the following automatically:
 
