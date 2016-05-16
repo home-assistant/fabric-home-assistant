@@ -40,6 +40,7 @@ while getopts ":n" opt; do
     git clone https://github.com/jbags81/fabric-home-assistant.git
 
     ( cd /home/$me/fabric-home-assistant && fab deploy_novenv -H localhost )
+    exit
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -78,3 +79,4 @@ git clone https://github.com/jbags81/fabric-home-assistant.git
 
 
 ( cd /home/$me/fabric-home-assistant && fab deploy -H localhost )
+exit
