@@ -153,19 +153,6 @@ def setup_services_novenv():
     sudo("systemctl daemon-reload")
 
 
-def setup_motd():
-    """ Configures HASS MOTD Banner """
-    with cd("/etc/ssh"):
-        put("sshd_config", "sshd_config", use_sudo=True)
-
-    with cd("/etc/profile.d"):
-        put("motd.sh", "motd.sh", use_sudo=True)
-        sudo("chmod +x motd.sh")
-        sudo("chown root:root motd.sh")
-
-
-
-
 ####################################
 ## Build and Install Applications ##
 ####################################
@@ -237,15 +224,6 @@ def setup_services():
     sudo("systemctl enable home-assistant.service")
     sudo("systemctl daemon-reload")
 
-def setup_motd():
-    """ Configures HASS MOTD Banner """
-    with cd("/etc/ssh"):
-        put("sshd_config", "sshd_config", use_sudo=True)
-
-    with cd("/etc/profile.d"):
-        put("motd.sh", "motd.sh", use_sudo=True)
-        sudo("chmod +x motd.sh")
-        sudo("chown root:root motd.sh")
 
 #############
 ## Deploy! ##
@@ -290,9 +268,6 @@ def deploy():
     ## Make apps start at boot ##
     setup_services()
 
-    ## Setup MOTD Banner ##
-    setup_motd()
-
     ## Reboot the system ##
     reboot()
 
@@ -333,9 +308,6 @@ def deploy_novenv():
 
     ## Make apps start at boot ##
     setup_services_novenv()
-
-    ## Setup MOTD Banner ##
-    setup_motd()
 
     ## Reboot the system ##
     reboot()
