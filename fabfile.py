@@ -186,7 +186,7 @@ def setup_openzwave():
     """ Activate Virtualenv, Install python-openzwave"""
     sudo("source /srv/hass/hass_venv/bin/activate && pip3 install --upgrade cython", user="hass")
     with cd("/srv/hass/src"):
-        sudo("git clone https://github.com/OpenZWave/python-openzwave.git", user="hass")
+        sudo("git clone --branch v0.3.1 https://github.com/OpenZWave/python-openzwave.git", user="hass")
         with cd("python-openzwave"):
             sudo("git checkout python3", user="hass")
             sudo("source /srv/hass/hass_venv/bin/activate && make build", user="hass")
@@ -212,7 +212,7 @@ def setup_openzwave_controlpanel():
         with cd("open-zwave-control-panel"):
             put("Makefile", "Makefile", use_sudo=True)
             sudo("make")
-            sudo("ln -sd /srv/hass/hass_venv/lib/python3.4/site-packages/libopenzwave-0.3.0-py3.4-linux-armv7l.egg/config")
+            sudo("ln -sd /srv/hass/hass_venv/lib/python3.4/site-packages/libopenzwave-0.3.1-py3.4-linux-armv7l.egg/config")
         sudo("chown -R hass:hass /srv/hass/src/open-zwave-control-panel")
 
 def setup_services():
