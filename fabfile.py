@@ -7,12 +7,14 @@
 # Import Fabric's API module
 from fabric.api import *
 import time
+import os
 
 
 env.hosts = ['localhost']
 env.user   = "pi"
 env.password = "raspberry"
-
+env.warn_only = True
+pi_hardware = os.uname()[4]
 
 #######################
 ## Core server setup ##
@@ -30,7 +32,7 @@ def install_start():
     ,,,,,,,,,,,,,,,,,,,,,,           ,,,,,,,,,,,,,,,,,,,,,,,
     ,,,,,,,,,,,,,,,,,,,,,             ,,,,,,,,,,,,,,,,,,,,,,
     ,,,,,,,,,,,,,,,,,,,,               ,,,,,,,,,,,,,,,,,,,,,
-    ,,,,,,,,,,,,,,,,,,,       ,,,,.     ,,,,,,,,,,,,,,,,,,,,
+    ,,,,,,,,,,,,,,,,,,,       ,,,,,     ,,,,,,,,,,,,,,,,,,,,
     ,,,,,,,,,,,,,,,,,,       ,,,,,,,     ,,,,,,,,,,,,,,,,,,,
     ,,,,,,,,,,,,,,,,,       ,,,,,,,,,     ,,,     ,,,,,,,,,,
     ,,,,,,,,,,,,,,,,        ,,,   ,,,      ,,     ,,,,,,,,,,
@@ -61,9 +63,15 @@ def install_start():
     ,,,,,,,,,,, Raspberry Pi All-In-One Installer ,,,,,,,,,,
     ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
     """)
+    print("* Warning *")
+    print("""The primary use of this installer is for a new, unconfigured Home Assistant deployment. 
+          Running the installer command straight from the Getting Started guide found on Github, will overwrite any existing configs.
+          Additional commands for upgrading should be run seperately. Please see the Github page for useage instructions""")
+    time.sleep(10)
+    print("Installer is starting...")
     print("Your Raspberry Pi will reboot when the installer is complete.")
-    time.sleep(3)
-    print("Install is starting...")
+    time.sleep(5)
+
 
 
 def update_upgrade():
@@ -82,7 +90,11 @@ def setup_dirs():
             sudo("chown hass:hass src")
     with cd("/home"):
         sudo("mkdir -p hass")
+        sudo("mkdir -p /home/hass/.homeassistant")
         sudo("chown hass:hass hass")
+    with cd ("/var/run/"):
+        sudo("touch mosquitto.pid")
+        sudo("chown mosquitto:mosquitto mosquitto.pid")
 
 def setup_users():
     """ Create service users, etc """
@@ -169,10 +181,10 @@ def setup_mosquitto():
                 sudo("make install")
                 sudo("ldconfig")
                 with cd("/srv/hass/src"):
-                    sudo("wget http://mosquitto.org/files/source/mosquitto-1.4.4.tar.gz")
-                    sudo("tar zxvf mosquitto-1.4.4.tar.gz")
-                    with cd("mosquitto-1.4.4"):
-                        sudo("sed -i 's/WITH_WEBSOCKETS:=no.*/WITH_WEBSOCKETS:=yes/' /srv/hass/src/mosquitto-1.4.4/config.mk")
+                    sudo("wget http://mosquitto.org/files/source/mosquitto-1.4.9.tar.gz")
+                    sudo("tar zxvf mosquitto-1.4.9.tar.gz")
+                    with cd("mosquitto-1.4.9"):
+                        sudo("sed -i 's/WITH_WEBSOCKETS:=no.*/WITH_WEBSOCKETS:=yes/' /srv/hass/src/mosquitto-1.4.9/config.mk")
                         sudo("make")
                         sudo("make install")
                         with cd("/etc/mosquitto"):
@@ -181,6 +193,8 @@ def setup_mosquitto():
 def setup_homeassistant():
     """ Activate Virtualenv, Install Home-Assistant """
     sudo("source /srv/hass/hass_venv/bin/activate && pip3 install homeassistant", user="hass")
+    with cd("/home/hass/"):
+        sudo("chown -R hass:hass /home/hass/")
 
 def setup_openzwave():
     """ Activate Virtualenv, Install python-openzwave"""
@@ -212,7 +226,10 @@ def setup_openzwave_controlpanel():
         with cd("open-zwave-control-panel"):
             put("Makefile", "Makefile", use_sudo=True)
             sudo("make")
-            sudo("ln -sd /srv/hass/hass_venv/lib/python3.4/site-packages/libopenzwave-0.3.1-py3.4-linux-armv7l.egg/config")
+            if pi_hardware == "armv7l":
+                sudo("ln -sd /srv/hass/hass_venv/lib/python3.4/site-packages/libopenzwave-0.3.1-py3.4-linux-armv7l.egg/config")
+            else:
+                sudo("ln -sd /srv/hass/hass_venv/lib/python3.4/site-packages/libopenzwave-0.3.1-py3.4-linux-armv**6**l.egg/config")
         sudo("chown -R hass:hass /srv/hass/src/open-zwave-control-panel")
 
 def setup_services():
@@ -224,6 +241,9 @@ def setup_services():
     sudo("systemctl enable home-assistant.service")
     sudo("systemctl daemon-reload")
 
+def upgrade_homeassistant():
+    """ Activate Venv, and upgrade Home Assistant to latest version """
+    sudo("source /srv/hass/hass_venv/bin/activate && pip3 install homeassistant --upgrade", user="hass")
 
 #############
 ## Deploy! ##
