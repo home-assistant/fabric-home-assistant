@@ -205,6 +205,8 @@ def setup_mosquitto():
                         with cd("/etc/mosquitto"):
                             put("mosquitto.conf", "mosquitto.conf", use_sudo=True)
                             sudo("touch pwfile")
+                            sudo("chown mosquitto: pwfile")
+                            sudo("chmod 0600 pwfile")
                             sudo("sudo mosquitto_passwd -b pwfile pi raspberry")
 
 def setup_homeassistant():
