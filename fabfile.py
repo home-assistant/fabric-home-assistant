@@ -192,6 +192,7 @@ def setup_mosquitto():
                         sudo("make install")
                         with cd("/etc/mosquitto"):
                             put("mosquitto.conf", "mosquitto.conf", use_sudo=True)
+                            sudo("touch pwfile")
 
 def setup_homeassistant():
     """ Activate Virtualenv, Install Home-Assistant """
