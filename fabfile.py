@@ -95,6 +95,9 @@ def setup_dirs():
     with cd ("/var/run/"):
         sudo("touch mosquitto.pid")
         sudo("chown mosquitto:mosquitto mosquitto.pid")
+    with cd ("/var/lib/"):
+        sudo("mkdir mosquitto")
+        sudo("chown mosquitto:mosquitto mosquitto")
 
 def setup_users():
     """ Create service users, etc """
