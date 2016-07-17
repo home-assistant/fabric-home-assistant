@@ -6,6 +6,7 @@
 
 # Import Fabric's API module
 from fabric.api import *
+import fabric.contrib.files
 import time
 import os
 
@@ -159,10 +160,21 @@ def setup_openzwave_novenv():
 
 def setup_services_novenv():
     """ Enable applications to start at boot via systemd """
+    hacfg="""
+mqtt:
+  broker: 127.0.0.1
+  port: 1883
+  client_id: home-assistant-1
+  username: pi
+  password: raspberry
+"""
     with cd("/etc/systemd/system/"):
         put("mosquitto.service", "mosquitto.service", use_sudo=True)
         put("home-assistant_novenv.service", "home-assistant_novenv.service", use_sudo=True)
+    with settings(sudo_user='hass'):
+        sudo("/srv/hass/hass_venv/bin/hass --script ensure-config --config /home/hass/.homeassistant"
 
+    fabric.contrib.files.append("/home/hass/.homeassistant/configuration.yaml", hacfg, use_sudo=True)
     sudo("systemctl enable mosquitto.service")
     sudo("systemctl enable home-assistant_novenv.service")
     sudo("systemctl daemon-reload")
@@ -193,6 +205,7 @@ def setup_mosquitto():
                         with cd("/etc/mosquitto"):
                             put("mosquitto.conf", "mosquitto.conf", use_sudo=True)
                             sudo("touch pwfile")
+                            sudo("sudo mosquitto_passwd -b pwfile pi raspberry")
 
 def setup_homeassistant():
     """ Activate Virtualenv, Install Home-Assistant """
@@ -238,9 +251,21 @@ def setup_openzwave_controlpanel():
 
 def setup_services():
     """ Enable applications to start at boot via systemd """
+    hacfg="""
+mqtt:
+  broker: 127.0.0.1
+  port: 1883
+  client_id: home-assistant-1
+  username: pi
+  password: raspberry
+"""
     with cd("/etc/systemd/system/"):
         put("mosquitto.service", "mosquitto.service", use_sudo=True)
         put("home-assistant.service", "home-assistant.service", use_sudo=True)
+    with settings(sudo_user='hass'):
+        sudo("/srv/hass/hass_venv/bin/hass --script ensure-config --config /home/hass/.homeassistant"
+
+    fabric.contrib.files.append("/home/hass/.homeassistant/configuration.yaml", hacfg, use_sudo=True)
     sudo("systemctl enable mosquitto.service")
     sudo("systemctl enable home-assistant.service")
     sudo("systemctl daemon-reload")
@@ -279,6 +304,9 @@ def deploy():
 
     ## Activate venv, install Home-Assistant ##
     setup_homeassistant()
+    
+    ## Make apps start at boot ##
+    setup_services()
 
     ## Activate venv, build and install python-openzwave ##
     setup_openzwave()
@@ -288,9 +316,6 @@ def deploy():
 
     ## Build and install open-zwave-control-panel ##
     setup_openzwave_controlpanel()
-
-    ## Make apps start at boot ##
-    setup_services()
 
     ## Reboot the system ##
     reboot()
@@ -321,6 +346,9 @@ def deploy_novenv():
     ## Activate venv, install Home-Assistant ##
     setup_homeassistant_novenv()
 
+    ## Make apps start at boot ##
+    setup_services_novenv()
+
     ## Activate venv, build and install python-openzwave ##
     setup_openzwave_novenv()
 
@@ -329,9 +357,6 @@ def deploy_novenv():
 
     ## Build and install open-zwave-control-panel ##
     setup_openzwave_controlpanel()
-
-    ## Make apps start at boot ##
-    setup_services_novenv()
 
     ## Reboot the system ##
     reboot()
