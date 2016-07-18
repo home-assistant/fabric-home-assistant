@@ -172,7 +172,7 @@ mqtt:
         put("mosquitto.service", "mosquitto.service", use_sudo=True)
         put("home-assistant_novenv.service", "home-assistant_novenv.service", use_sudo=True)
     with settings(sudo_user='hass'):
-        sudo("/srv/hass/hass_venv/bin/hass --script ensure_config --config /home/hass/.homeassistant"
+        sudo("""/srv/hass/hass_venv/bin/python3.4 -c "import homeassistant.config as config_util; config_util.ensure_config_exists('/home/hass/.homeassistant')" """)
 
     fabric.contrib.files.append("/home/hass/.homeassistant/configuration.yaml", hacfg, use_sudo=True)
     sudo("systemctl enable mosquitto.service")
@@ -265,7 +265,7 @@ mqtt:
         put("mosquitto.service", "mosquitto.service", use_sudo=True)
         put("home-assistant.service", "home-assistant.service", use_sudo=True)
     with settings(sudo_user='hass'):
-        sudo("/srv/hass/hass_venv/bin/hass --script ensure_config --config /home/hass/.homeassistant"
+        sudo("""/srv/hass/hass_venv/bin/python3.4 -c "import homeassistant.config as config_util; config_util.ensure_config_exists('/home/hass/.homeassistant')" """)
 
     fabric.contrib.files.append("/home/hass/.homeassistant/configuration.yaml", hacfg, use_sudo=True)
     sudo("systemctl enable mosquitto.service")
