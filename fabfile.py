@@ -204,7 +204,7 @@ def setup_libcec_novenv():
 
 def setup_mosquitto():
     """ Install Mosquitto w/ websockets"""
-    with cd("/srv/homeassistant/src"):
+    with cd("/srv/hass/src"):
         sudo("wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key")
         sudo("apt-key add mosquitto-repo.gpg.key")
         with cd("/etc/apt/sources.list.d/"):
