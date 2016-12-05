@@ -61,7 +61,7 @@ def install_start():
     ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
     ,,,,,,,,,,,                                   ,,,,,,,,,,
     ,,,,,,,,,,,   Welcome to the Home Assistant   ,,,,,,,,,,
-    ,,,,,,,,,,, Raspberry Pi All-In-One Installer ,,,,,,,,,,
+    ,,,,,,,,,,,       All-In-One Installer        ,,,,,,,,,,
     ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
     """)
     print("* Warning *")
@@ -70,7 +70,7 @@ def install_start():
           Additional commands for upgrading should be run seperately. Please see the Github page for useage instructions""")
     time.sleep(10)
     print("Installer is starting...")
-    print("Your Raspberry Pi will reboot when the installer is complete.")
+    print("Your system will reboot when the installer is complete.")
     time.sleep(5)
 
 
@@ -165,21 +165,19 @@ def setup_openzwave_novenv():
 def setup_services_novenv():
     """ Enable applications to start at boot via systemd """
     hacfg="""
-mqtt:
-  broker: 127.0.0.1
-  port: 1883
-  client_id: home-assistant-1
-  username: pi
-  password: raspberry
-"""
+    mqtt:
+       broker: 127.0.0.1
+       port: 1883
+       client_id: home-assistant-1
+       username: pi
+       password: raspberry
+    """
     with cd("/etc/systemd/system/"):
-        put("mosquitto.service", "mosquitto.service", use_sudo=True)
         put("home-assistant_novenv.service", "home-assistant_novenv.service", use_sudo=True)
     with settings(sudo_user='hass'):
         sudo("/srv/hass/hass_venv/bin/hass --script ensure_config --config /home/hass/.homeassistant")
 
     fabric.contrib.files.append("/home/hass/.homeassistant/configuration.yaml", hacfg, use_sudo=True)
-    sudo("systemctl enable mosquitto.service")
     sudo("systemctl enable home-assistant_novenv.service")
     sudo("systemctl daemon-reload")
 
@@ -205,29 +203,21 @@ def setup_libcec_novenv():
 ####################################
 
 def setup_mosquitto():
-    """ Build and Install Mosquitto """
-    with cd("/tmp"):
-        sudo("curl -O https://libwebsockets.org/git/libwebsockets/snapshot/libwebsockets-1.4-chrome43-firefox-36.tar.gz")
-        sudo("tar xvf libwebsockets*")
-        with cd("libwebsockets*"):
-            sudo("mkdir build")
-            with cd("build"):
-                sudo("cmake ..")
-                sudo("make install")
-                sudo("ldconfig")
-                with cd("/srv/hass/src"):
-                    sudo("wget http://mosquitto.org/files/source/mosquitto-1.4.9.tar.gz")
-                    sudo("tar zxvf mosquitto-1.4.9.tar.gz")
-                    with cd("mosquitto-1.4.9"):
-                        sudo("sed -i 's/WITH_WEBSOCKETS:=no.*/WITH_WEBSOCKETS:=yes/' /srv/hass/src/mosquitto-1.4.9/config.mk")
-                        sudo("make")
-                        sudo("make install")
-                        with cd("/etc/mosquitto"):
-                            put("mosquitto.conf", "mosquitto.conf", use_sudo=True)
-                            sudo("touch pwfile")
-                            sudo("chown mosquitto: pwfile")
-                            sudo("chmod 0600 pwfile")
-                            sudo("sudo mosquitto_passwd -b pwfile pi raspberry")
+    """ Install Mosquitto w/ websockets"""
+    with cd("/srv/homeassistant/src"):
+        sudo("wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key")
+        sudo("apt-key add mosquitto-repo.gpg.key")
+        with cd("/etc/apt/sources.list.d/"):
+            sudo("wget http://repo.mosquitto.org/debian/mosquitto-jessie.list")
+            sudo("apt-get update")
+            sudo("apt-cache search mosquitto")
+            sudo("aptitude install -y mosquitto")
+            with cd("/etc/mosquitto"):
+                put("mosquitto.conf", "mosquitto.conf", use_sudo=True)
+                sudo("touch pwfile")
+                sudo("chown mosquitto: pwfile")
+                sudo("chmod 0600 pwfile")
+                sudo("sudo mosquitto_passwd -b pwfile pi raspberry")
 
 def setup_homeassistant():
     """ Activate Virtualenv, Install Home-Assistant """
@@ -277,21 +267,19 @@ def setup_openzwave_controlpanel():
 def setup_services():
     """ Enable applications to start at boot via systemd """
     hacfg="""
-mqtt:
-  broker: 127.0.0.1
-  port: 1883
-  client_id: home-assistant-1
-  username: pi
-  password: raspberry
-"""
+    mqtt:
+      broker: 127.0.0.1
+      port: 1883
+      client_id: home-assistant-1
+      username: pi
+      password: raspberry
+    """
     with cd("/etc/systemd/system/"):
-        put("mosquitto.service", "mosquitto.service", use_sudo=True)
         put("home-assistant.service", "home-assistant.service", use_sudo=True)
     with settings(sudo_user='hass'):
         sudo("/srv/hass/hass_venv/bin/hass --script ensure_config --config /home/hass/.homeassistant")
 
     fabric.contrib.files.append("/home/hass/.homeassistant/configuration.yaml", hacfg, use_sudo=True)
-    sudo("systemctl enable mosquitto.service")
     sudo("systemctl enable home-assistant.service")
     sudo("systemctl daemon-reload")
 
