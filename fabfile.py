@@ -165,13 +165,13 @@ def setup_openzwave_novenv():
 def setup_services_novenv():
     """ Enable applications to start at boot via systemd """
     hacfg="""
-    mqtt:
-       broker: 127.0.0.1
-       port: 1883
-       client_id: home-assistant-1
-       username: pi
-       password: raspberry
-    """
+mqtt:
+  broker: 127.0.0.1
+  port: 1883
+  client_id: home-assistant-1
+  username: pi
+  password: raspberry
+"""
     with cd("/etc/systemd/system/"):
         put("home-assistant_novenv.service", "home-assistant_novenv.service", use_sudo=True)
     with settings(sudo_user='hass'):
