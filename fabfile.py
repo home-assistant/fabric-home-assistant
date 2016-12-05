@@ -105,6 +105,7 @@ def setup_users():
     sudo("useradd mosquitto")
     sudo("useradd --system hass")
     sudo("usermod -G dialout -a hass")
+    sudo("usermod -G video -a hass")
     sudo("usermod -d /home/hass hass")
 
 def install_syscore():
@@ -129,6 +130,9 @@ def install_syscore():
     sudo("aptitude install -y libudev-dev")
     sudo("aptitude install -y python3-sphinx")
     sudo("aptitude install -y python3-setuptools")
+    sudo("aptitude install -y libxrandr-dev")
+    sudo("aptitude install -y python-dev")
+    sudo("aptitude install -y swig")
 
 def install_pycore():
     """ Download and install VirtualEnv """
@@ -179,6 +183,22 @@ mqtt:
     sudo("systemctl enable home-assistant_novenv.service")
     sudo("systemctl daemon-reload")
 
+def setup_libcec_novenv():
+    """ Install libcec according to https://github.com/Pulse-Eight/libcec/blob/master/docs/README.raspberrypi.md """
+    with cd("/srv/hass/src"):
+        sudo("git clone https://github.com/Pulse-Eight/platform.git", user="hass")
+        sudo("mkdir platform/build", user="hass")
+        with cd("platform/build"):
+            sudo("cmake ..", user="hass")
+            sudo("make", user="hass")
+            sudo("make install")
+        sudo("git clone https://github.com/Pulse-Eight/libcec.git", user="hass")
+        sudo("mkdir libcec/build", user="hass")
+        with cd("libcec/build"):
+            sudo("cmake -DRPI_INCLUDE_DIR=/opt/vc/include -DRPI_LIB_DIR=/opt/vc/lib ..", user="hass")
+            sudo("make -j4", user="hass")
+            sudo("make install")
+            sudo("ldconfig")
 
 ####################################
 ## Build and Install Applications ##
@@ -225,6 +245,9 @@ def setup_openzwave():
             sudo("source /srv/hass/hass_venv/bin/activate && make build", user="hass")
             sudo("source /srv/hass/hass_venv/bin/activate && make install", user="hass")
 
+def setup_libcec():
+    setup_libcec_novenv()
+    sudo("ln -s /usr/local/lib/python3.4/dist-packages/cec /srv/hass/hass_venv/lib/python3.4/site-packages", user="hass")
 
 def setup_libmicrohttpd():
     """ Build and install libmicrohttpd """
@@ -306,7 +329,7 @@ def deploy():
 
     ## Activate venv, install Home-Assistant ##
     setup_homeassistant()
-    
+
     ## Make apps start at boot ##
     setup_services()
 
@@ -318,6 +341,9 @@ def deploy():
 
     ## Build and install open-zwave-control-panel ##
     setup_openzwave_controlpanel()
+
+    ## Build and install libcec ##
+    setup_libcec()
 
     ## Reboot the system ##
     reboot()
@@ -359,6 +385,9 @@ def deploy_novenv():
 
     ## Build and install open-zwave-control-panel ##
     setup_openzwave_controlpanel()
+
+    ## Build and install libcec ##
+    setup_libcec_novenv()
 
     ## Reboot the system ##
     reboot()

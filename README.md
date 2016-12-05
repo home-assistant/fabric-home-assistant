@@ -37,6 +37,7 @@ The All-In-One Installer script will do the following automatically:
 *  Build and install Mosquitto from source with websocket support running on ports 1883 and 9001
 *  Build and Install Python-openzwave in the Home Assistant virtualenv
 *  Build openzwave-control-panel in `/srv/hass/src/open-zwave-control-panel`
+*  Build and Install libcec for the [hdmi component](https://home-assistant.io/components/hdmi_cec/)
 *  Add both Home Assistant and Mosquitto to systemd services to start at boot
 
 
