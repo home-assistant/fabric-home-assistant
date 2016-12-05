@@ -211,7 +211,7 @@ def setup_mosquitto():
             sudo("wget http://repo.mosquitto.org/debian/mosquitto-jessie.list")
             sudo("apt-get update")
             sudo("apt-cache search mosquitto")
-            sudo("apt-get install -y mosquitto")
+            sudo("apt-get install -y mosquitto mosquitto-clients")
             with cd("/etc/mosquitto"):
                 put("mosquitto.conf", "mosquitto.conf", use_sudo=True)
                 sudo("touch pwfile")
