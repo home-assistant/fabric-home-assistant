@@ -35,6 +35,7 @@ while getopts ":n" opt; do
       sudo apt-get --force-yes --yes install git
     fi
 
+    sudo /usr/bin/pip install --upgrade pip
     sudo /usr/bin/pip install fabric
 
     git clone https://github.com/home-assistant/fabric-home-assistant.git
@@ -73,6 +74,7 @@ if [ "" == "$PKG_GIT" ]; then
   sudo apt-get --force-yes --yes install git
 fi
 
+sudo /usr/bin/pip install --upgrade pip
 sudo /usr/bin/pip install fabric
 
 git clone https://github.com/home-assistant/fabric-home-assistant.git

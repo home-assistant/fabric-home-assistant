@@ -21,13 +21,13 @@ DEBUG_LDFLAGS	:= -g
 CFLAGS	:= -c $(DEBUG_CFLAGS)
 LDFLAGS	:= $(DEBUG_LDFLAGS)
 
-OPENZWAVE := /srv/hass/src/python-openzwave/openzwave
+OPENZWAVE := /srv/homeassistant/src/python-openzwave/openzwave
 LIBMICROHTTPD := /usr/local/lib/libmicrohttpd.a
 
 INCLUDES := -I $(OPENZWAVE)/cpp/src -I $(OPENZWAVE)/cpp/src/command_classes/ \
 	-I $(OPENZWAVE)/cpp/src/value_classes/ -I $(OPENZWAVE)/cpp/src/platform/ \
 	-I $(OPENZWAVE)/cpp/src/platform/unix -I $(OPENZWAVE)/cpp/tinyxml/ \
-	-I /srv/hass/src/libmicrohttpd/src/include
+	-I /srv/homeassistant/src/libmicrohttpd/src/include
 
 # Remove comment below for gnutls support
 GNUTLS := -lgnutls
