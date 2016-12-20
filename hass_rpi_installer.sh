@@ -34,7 +34,8 @@ while getopts ":n" opt; do
       echo "No git. Setting up git."
       sudo apt-get --force-yes --yes install git
     fi
-
+    
+    sudo /usr/bin/pip install pycrypto
     sudo /usr/bin/pip3 install pycrypto
     sudo /usr/bin/pip3 install fabric3
 
@@ -74,6 +75,7 @@ if [ "" == "$PKG_GIT" ]; then
   sudo apt-get --force-yes --yes install git
 fi
 
+sudo /usr/bin/pip install pycrypto
 sudo /usr/bin/pip3 install pycrypto
 sudo /usr/bin/pip3 install fabric3
 
