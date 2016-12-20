@@ -14,29 +14,29 @@ while getopts ":n" opt; do
 
     sudo apt-get update
 
-    PKG_PYDEV=$(dpkg-query -W --showformat='${Status}\n' python-dev|grep "install ok installed")
-    echo Checking for python-dev: $PKG_PYDEV
+    PKG_PYDEV=$(dpkg-query -W --showformat='${Status}\n' python3-dev|grep "install ok installed")
+    echo Checking for python3-dev: $PKG_PYDEV
     if [ "" == "$PKG_PYDEV" ]; then
-      echo "No python-dev. Setting up python-dev."
-      sudo apt-get --force-yes --yes install python-dev
+      echo "No python3-dev. Setting up python3-dev."
+      sudo apt-get --force-yes --yes install python3-dev
     fi
 
-    PKG_PYPIP=$(dpkg-query -W --showformat='${Status}\n' python-pip|grep "install ok installed")
-    echo Checking for python-pip: $PKG_PYPIP
+    PKG_PYPIP=$(dpkg-query -W --showformat='${Status}\n' python3-pip|grep "install ok installed")
+    echo Checking for python3-pip: $PKG_PYPIP
     if [ "" == "$PKG_PYPIP" ]; then
-      echo "No python-pip. Setting up python-pip."
-      sudo apt-get --force-yes --yes install python-pip
+      echo "No python3-pip. Setting up python3-pip."
+      sudo apt-get --force-yes --yes install python3-pip
     fi
 
     PKG_GIT=$(dpkg-query -W --showformat='${Status}\n' git|grep "install ok installed")
-    echo Checking for python-pip: $PKG_GIT
+    echo Checking for python3-pip: $PKG_GIT
     if [ "" == "$PKG_GIT" ]; then
       echo "No git. Setting up git."
       sudo apt-get --force-yes --yes install git
     fi
 
     sudo /usr/bin/pip install --upgrade pip
-    sudo /usr/bin/pip install fabric
+    sudo /usr/bin/pip install fabric3
 
     git clone https://github.com/home-assistant/fabric-home-assistant.git
 
@@ -53,18 +53,18 @@ me=$(whoami)
 
 sudo apt-get update
 
-PKG_PYDEV=$(dpkg-query -W --showformat='${Status}\n' python-dev|grep "install ok installed")
-echo Checking for python-dev: $PKG_PYDEV
+PKG_PYDEV=$(dpkg-query -W --showformat='${Status}\n' python3-dev|grep "install ok installed")
+echo Checking for python3-dev: $PKG_PYDEV
 if [ "" == "$PKG_PYDEV" ]; then
-  echo "No python-dev. Setting up python-dev."
-  sudo apt-get --force-yes --yes install python-dev
+  echo "No python3-dev. Setting up python3-dev."
+  sudo apt-get --force-yes --yes install python3-dev
 fi
 
-PKG_PYPIP=$(dpkg-query -W --showformat='${Status}\n' python-pip|grep "install ok installed")
-echo Checking for python-pip: $PKG_PYPIP
+PKG_PYPIP=$(dpkg-query -W --showformat='${Status}\n' python3-pip|grep "install ok installed")
+echo Checking for python3-pip: $PKG_PYPIP
 if [ "" == "$PKG_PYPIP" ]; then
-  echo "No python-pip. Setting up python-pip."
-  sudo apt-get --force-yes --yes install python-pip
+  echo "No python3-pip. Setting up python3-pip."
+  sudo apt-get --force-yes --yes install python3-pip
 fi
 
 PKG_GIT=$(dpkg-query -W --showformat='${Status}\n' git|grep "install ok installed")
@@ -74,8 +74,8 @@ if [ "" == "$PKG_GIT" ]; then
   sudo apt-get --force-yes --yes install git
 fi
 
-sudo /usr/bin/pip install --upgrade pip
-sudo /usr/bin/pip install fabric
+sudo /usr/bin/pip3 install --upgrade pip3
+sudo /usr/bin/pip3 install fabric3
 
 git clone https://github.com/home-assistant/fabric-home-assistant.git
 
