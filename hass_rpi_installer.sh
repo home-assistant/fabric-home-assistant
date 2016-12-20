@@ -35,7 +35,13 @@ while getopts ":n" opt; do
       sudo apt-get --force-yes --yes install git
     fi
     
-    sudo /usr/bin/pip install pycrypto
+    PKG_LIBSSL_DEV=$(dpkg-query -W --showformat='${Status}\n' libssl-dev|grep "install ok installed")
+    echo Checking for libssl-dev: $PKG_LIBSSL_DEV
+    if [ "" == "$PKG_LIBSSL_DEV" ]; then
+      echo "No libssl-dev. Setting up libssl-dev."
+      sudo apt-get --force-yes --yes install libssl-dev
+    fi
+    
     sudo /usr/bin/pip3 install pycrypto
     sudo /usr/bin/pip3 install fabric3
 
@@ -69,13 +75,19 @@ if [ "" == "$PKG_PYPIP" ]; then
 fi
 
 PKG_GIT=$(dpkg-query -W --showformat='${Status}\n' git|grep "install ok installed")
-echo Checking for python-pip: $PKG_GIT
+echo Checking for git: $PKG_GIT
 if [ "" == "$PKG_GIT" ]; then
   echo "No git. Setting up git."
   sudo apt-get --force-yes --yes install git
 fi
 
-sudo /usr/bin/pip install pycrypto
+PKG_LIBSSL_DEV=$(dpkg-query -W --showformat='${Status}\n' libssl-dev|grep "install ok installed")
+echo Checking for libssl-dev: $PKG_LIBSSL_DEV
+if [ "" == "$PKG_LIBSSL_DEV" ]; then
+  echo "No libssl-dev. Setting up libssl-dev."
+  sudo apt-get --force-yes --yes install libssl-dev
+fi
+
 sudo /usr/bin/pip3 install pycrypto
 sudo /usr/bin/pip3 install fabric3
 
