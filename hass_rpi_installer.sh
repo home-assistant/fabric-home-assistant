@@ -43,6 +43,7 @@ while getopts ":n" opt; do
     fi
     
     sudo /usr/bin/pip3 install pycrypto
+    sudo /usr/bin/pip3 install cryptography
     sudo /usr/bin/pip3 install fabric3
 
     git clone https://github.com/home-assistant/fabric-home-assistant.git
@@ -89,6 +90,7 @@ if [ "" == "$PKG_LIBSSL_DEV" ]; then
 fi
 
 sudo /usr/bin/pip3 install pycrypto
+sudo /usr/bin/pip3 install cryptography
 sudo /usr/bin/pip3 install fabric3
 
 git clone https://github.com/home-assistant/fabric-home-assistant.git
