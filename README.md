@@ -50,9 +50,10 @@ To upgrade the All-In-One setup:
 
 To change the MQTT default password: 
 
-*  Login to Raspberry Pi ```ssh pi@your_raspberry_pi_ip```
-* Change password `sudo mosquitto_passwd /etc/mosquitto/pwfile pi`
-* Be sure to update your 'configuration.yaml' to reflect the new password.
+*  Login to Raspberry Pi `ssh pi@your_raspberry_pi_ip`
+*  Change password `sudo mosquitto_passwd /etc/mosquitto/pwfile pi`
+*  Restart mosquitto `sudo systemctl restart mosquitto.service`
+*  Be sure to update your `configuration.yaml` to reflect the new password.
 
 To launch the OZWCP webapp:
 
