@@ -102,6 +102,7 @@ def setup_users():
     sudo("useradd mosquitto")
     sudo("useradd --system homeassistant")
     sudo("usermod -G dialout -a homeassistant")
+    sudo("usermod -G gpio -a homeassistant")
     sudo("usermod -G video -a homeassistant")
     sudo("usermod -d /home/homeassistant homeassistant")
 
