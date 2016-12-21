@@ -41,7 +41,21 @@ while getopts ":n" opt; do
       echo "No libssl-dev. Setting up libssl-dev."
       sudo apt-get --force-yes --yes install libssl-dev
     fi
-    
+
+    PKG_LIBFFI_DEV=$(dpkg-query -W --showformat='${Status}\n' libffi-dev|grep "install ok installed")
+    echo Checking for libffi-dev: $PKG_LIBFFI_DEV
+    if [ "" == "$PKG_LIBFFI_DEV" ]; then
+      echo "No libffi-dev. Setting up libffi-dev."
+      sudo apt-get --force-yes --yes install libffi-dev
+    fi
+
+    PKG_APT_LISTCHANGES=$(dpkg-query -W --showformat='${Status}\n' apt-listchanges|grep "install ok installed")
+    echo Checking for apt-listchanges: $PKG_APT_LISTCHANGES
+    if [ "install ok installed" == "$PKG_APT_LISTCHANGES" ]; then
+      echo "apt-listchanges installed. Removing."
+      sudo apt-get --force-yes --yes remove apt-listchanges
+    fi
+
     sudo /usr/bin/pip3 install pycrypto
     sudo /usr/bin/pip3 install cryptography
     sudo /usr/bin/pip3 install fabric3
@@ -88,6 +102,22 @@ if [ "" == "$PKG_LIBSSL_DEV" ]; then
   echo "No libssl-dev. Setting up libssl-dev."
   sudo apt-get --force-yes --yes install libssl-dev
 fi
+
+PKG_LIBFFI_DEV=$(dpkg-query -W --showformat='${Status}\n' libffi-dev|grep "install ok installed")
+echo Checking for libffi-dev: $PKG_LIBFFI_DEV
+if [ "" == "$PKG_LIBFFI_DEV" ]; then
+  echo "No libffi-dev. Setting up libffi-dev."
+  sudo apt-get --force-yes --yes install libffi-dev
+fi
+
+PKG_APT_LISTCHANGES=$(dpkg-query -W --showformat='${Status}\n' apt-listchanges|grep "install ok installed")
+echo Checking for apt-listchanges: $PKG_APT_LISTCHANGES
+if [ "install ok installed" == "$PKG_APT_LISTCHANGES" ]; then
+  echo "apt-listchanges installed. Removing."
+  sudo apt-get --force-yes --yes remove apt-listchanges
+fi
+
+
 
 sudo /usr/bin/pip3 install pycrypto
 sudo /usr/bin/pip3 install cryptography
