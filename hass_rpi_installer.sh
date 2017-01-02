@@ -29,7 +29,7 @@ while getopts ":n" opt; do
     fi
 
     PKG_GIT=$(dpkg-query -W --showformat='${Status}\n' git|grep "install ok installed")
-    echo Checking for python3-pip: $PKG_GIT
+    echo Checking for git: $PKG_GIT
     if [ "" == "$PKG_GIT" ]; then
       echo "No git. Setting up git."
       sudo apt-get --force-yes --yes install git
