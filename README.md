@@ -48,6 +48,13 @@ To upgrade the All-In-One setup:
 *  Change to virtual enviroment `source /srv/homeassistant/homeassistant_venv/bin/activate`
 *  Update HA `pip3 install --upgrade homeassistant`
 
+To change the MQTT default password: 
+
+*  Login to Raspberry Pi `ssh pi@your_raspberry_pi_ip`
+*  Change password `sudo mosquitto_passwd /etc/mosquitto/pwfile pi`
+*  Restart mosquitto `sudo systemctl restart mosquitto.service`
+*  Be sure to update your `configuration.yaml` to reflect the new password.
+
 To launch the OZWCP webapp:
 
 *  Login to Raspberry Pi `ssh pi@your_raspberry_pi_ip`
