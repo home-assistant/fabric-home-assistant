@@ -1,0 +1,10 @@
+[Unit]
+Description=Open Z-Wave Control Panel
+After=network.target
+Conflicts=home-assistant.service
+
+[Service]
+Type=simple
+User=homeassistant
+WorkingDirectory=/srv/homeassistant/src/open-zwave-control-panel
+ExecStart=/srv/homeassistant/src/open-zwave-control-panel/ozwcp -p 8124
