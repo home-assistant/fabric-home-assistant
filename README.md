@@ -58,10 +58,10 @@ To change the MQTT default password:
 To launch the OZWCP webapp:
 
 *  Login to Raspberry Pi `ssh pi@your_raspberry_pi_ip`
-*  Change to the ozwcp directory `cd /srv/homeassistant/src/open-zwave-control-panel/`
-*  Launch the control panel `sudo ./ozwcp -p 8888`
-*  Open a web browser to `http://your_pi_ip:8888`
+*  Start the ozwcp service, which will stop home assistant. `sudo systemctl start ozwcp`
+*  Open a web browser to `http://your_pi_ip:8124`
 *  Specify your zwave controller, for example `/dev/ttyACM0` and hit initialize
+*  Once finished with OZWCP start home assistant again with `sudo systemctl start home-assistant` (this will stop OZWCP).
   
 *don't check the USB box regardless of using a USB based device*
 
