@@ -1,6 +1,7 @@
 [Unit]
 Description=Home Assistant
 After=network.target
+Conflicts=ozwcp.service
 
 [Service]
 Type=simple
