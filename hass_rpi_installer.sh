@@ -60,7 +60,7 @@ while getopts ":n" opt; do
     sudo /usr/bin/pip3 install cryptography
     sudo /usr/bin/pip3 install fabric3
 
-    git clone https://github.com/home-assistant/fabric-home-assistant.git
+    git clone https://github.com/bassclarinetl2/fabric-home-assistant.git
 
     ( cd /home/$me/fabric-home-assistant && fab deploy_novenv -H localhost 2>&1 | tee installation_report.txt )
     exit
