@@ -57,10 +57,13 @@ while getopts ":n" opt; do
       echo "apt-listchanges installed. Removing."
       sudo apt-get --force-yes --yes remove apt-listchanges
     fi
-
-    sudo /usr/bin/pip3 install pycrypto
-    sudo /usr/bin/pip3 install cryptography
-    sudo /usr/bin/pip3 install fabric3
+    
+    #get path to pip
+    PIP_PATH=$(which pip)
+    
+    sudo $PIP_PATH install pycrypto
+    sudo $PIP_PATH install cryptography
+    sudo $PIP_PATH install fabric3
 
     git clone https://github.com/home-assistant/fabric-home-assistant.git
 
@@ -122,10 +125,12 @@ if [ "install ok installed" == "$PKG_APT_LISTCHANGES" ]; then
 fi
 
 
-
-sudo /usr/bin/pip3 install pycrypto
-sudo /usr/bin/pip3 install cryptography
-sudo /usr/bin/pip3 install fabric3
+#get path to pip
+PIP_PATH=$(which pip)
+    
+sudo $PIP_PATH install pycrypto
+sudo $PIP_PATH install cryptography
+sudo $PIP_PATH install fabric3
 
 git clone https://github.com/home-assistant/fabric-home-assistant.git
 
