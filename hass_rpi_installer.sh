@@ -13,7 +13,9 @@ while getopts ":n" opt; do
     me=$(whoami)
 
     sudo apt-get update
-
+    sudo pip install --upgrade pip
+    sudo pip install --upgrade setuptools
+    
     PKG_PYDEV=$(dpkg-query -W --showformat='${Status}\n' python3-dev|grep "install ok installed")
     echo Checking for python3-dev: $PKG_PYDEV
     if [ "" == "$PKG_PYDEV" ]; then
@@ -74,6 +76,8 @@ done
 me=$(whoami)
 
 sudo apt-get update
+sudo pip install --upgrade pip
+sudo pip install --upgrade setuptools
 
 PKG_PYDEV=$(dpkg-query -W --showformat='${Status}\n' python3-dev|grep "install ok installed")
 echo Checking for python3-dev: $PKG_PYDEV
