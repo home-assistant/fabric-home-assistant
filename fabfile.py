@@ -85,7 +85,7 @@ def setup_dirs():
     """ Create all needed directories and change ownership """
     with cd("/srv"):
         sudo("mkdir homeassistant")
-        sudo("chown homeassistant homeassistant")
+        sudo("chown homeassistant:homeassistant homeassistant")
         with cd("homeassistant"):
             sudo("mkdir -p src")
             sudo("chown homeassistant:homeassistant src")
