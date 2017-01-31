@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Home Assistant Raspberry Pi Installer Kickstarter
-# Copyright (C) 2016 Jonathan Baginski - All Rights Reserved
+# Copyright (C) 2017 Jonathan Baginski - All Rights Reserved
 # Permission to copy and modify is granted under the MIT License
-# Last revised 5/15/2016
+# Last revised 1/30/2017
 
 ## Run pre-install apt package dependency checks ##
 
@@ -11,23 +11,22 @@ while getopts ":n" opt; do
     n)
 
     me=$(whoami)
+    PIP_PATH=$(which pip)
 
     sudo apt-get update
-    sudo pip install --upgrade pip
-    sudo pip install --upgrade setuptools
     
-    PKG_PYDEV=$(dpkg-query -W --showformat='${Status}\n' python3-dev|grep "install ok installed")
-    echo Checking for python3-dev: $PKG_PYDEV
+    PKG_PYDEV=$(dpkg-query -W --showformat='${Status}\n' python-dev|grep "install ok installed")
+    echo Checking for python-dev: $PKG_PYDEV
     if [ "" == "$PKG_PYDEV" ]; then
-      echo "No python3-dev. Setting up python3-dev."
-      sudo apt-get --force-yes --yes install python3-dev
+      echo "No python-dev. Setting up python-dev."
+      sudo apt-get --force-yes --yes install python-dev
     fi
 
-    PKG_PYPIP=$(dpkg-query -W --showformat='${Status}\n' python3-pip|grep "install ok installed")
-    echo Checking for python3-pip: $PKG_PYPIP
+    PKG_PYPIP=$(dpkg-query -W --showformat='${Status}\n' python-pip|grep "install ok installed")
+    echo Checking for python-pip: $PKG_PYPIP
     if [ "" == "$PKG_PYPIP" ]; then
-      echo "No python3-pip. Setting up python3-pip."
-      sudo apt-get --force-yes --yes install python3-pip
+      echo "No python-pip. Setting up python-pip."
+      sudo apt-get --force-yes --yes install python-pip
     fi
 
     PKG_GIT=$(dpkg-query -W --showformat='${Status}\n' git|grep "install ok installed")
@@ -58,10 +57,12 @@ while getopts ":n" opt; do
       sudo apt-get --force-yes --yes remove apt-listchanges
     fi
 
-    sudo /usr/bin/pip3 install pycrypto
-    sudo /usr/bin/pip3 install cryptography
-    sudo /usr/bin/pip3 install fabric3
-
+    sudo $PIP_PATH install --upgrade pip
+    sudo $PIP_PATH install --upgrade setuptools
+    sudo $PIP_PATH install pycrypto
+    sudo $PIP_PATH install cryptography
+    sudo $PIP_PATH install fabric
+    
     git clone https://github.com/home-assistant/fabric-home-assistant.git
 
     ( cd /home/$me/fabric-home-assistant && fab deploy_novenv -H localhost 2>&1 | tee installation_report.txt )
@@ -74,23 +75,22 @@ while getopts ":n" opt; do
 done
 
 me=$(whoami)
+PIP_PATH=$(which pip)
 
 sudo apt-get update
-sudo pip install --upgrade pip
-sudo pip install --upgrade setuptools
 
-PKG_PYDEV=$(dpkg-query -W --showformat='${Status}\n' python3-dev|grep "install ok installed")
-echo Checking for python3-dev: $PKG_PYDEV
+PKG_PYDEV=$(dpkg-query -W --showformat='${Status}\n' python-dev|grep "install ok installed")
+echo Checking for python-dev: $PKG_PYDEV
 if [ "" == "$PKG_PYDEV" ]; then
-  echo "No python3-dev. Setting up python3-dev."
-  sudo apt-get --force-yes --yes install python3-dev
+  echo "No python-dev. Setting up python-dev."
+  sudo apt-get --force-yes --yes install python-dev
 fi
 
-PKG_PYPIP=$(dpkg-query -W --showformat='${Status}\n' python3-pip|grep "install ok installed")
-echo Checking for python3-pip: $PKG_PYPIP
+PKG_PYPIP=$(dpkg-query -W --showformat='${Status}\n' python-pip|grep "install ok installed")
+echo Checking for python-pip: $PKG_PYPIP
 if [ "" == "$PKG_PYPIP" ]; then
-  echo "No python3-pip. Setting up python3-pip."
-  sudo apt-get --force-yes --yes install python3-pip
+  echo "No python3-pip. Setting up python-pip."
+  sudo apt-get --force-yes --yes install python-pip
 fi
 
 PKG_GIT=$(dpkg-query -W --showformat='${Status}\n' git|grep "install ok installed")
@@ -121,11 +121,11 @@ if [ "install ok installed" == "$PKG_APT_LISTCHANGES" ]; then
   sudo apt-get --force-yes --yes remove apt-listchanges
 fi
 
-
-
-sudo /usr/bin/pip3 install pycrypto
-sudo /usr/bin/pip3 install cryptography
-sudo /usr/bin/pip3 install fabric3
+sudo $PIP_PATH install --upgrade pip
+sudo $PIP_PATH install --upgrade setuptools
+sudo $PIP_PATH install pycrypto
+sudo $PIP_PATH install cryptography
+sudo $PIP_PATH install fabric
 
 git clone https://github.com/home-assistant/fabric-home-assistant.git
 
