@@ -11,10 +11,9 @@ while getopts ":n" opt; do
     n)
 
     me=$(whoami)
-    PIP_PATH=$(which pip)
 
     sudo apt-get update
-    
+
     PKG_PYDEV=$(dpkg-query -W --showformat='${Status}\n' python-dev|grep "install ok installed")
     echo Checking for python-dev: $PKG_PYDEV
     if [ "" == "$PKG_PYDEV" ]; then
@@ -35,7 +34,7 @@ while getopts ":n" opt; do
       echo "No git. Setting up git."
       sudo apt-get --force-yes --yes install git
     fi
-    
+
     PKG_LIBSSL_DEV=$(dpkg-query -W --showformat='${Status}\n' libssl-dev|grep "install ok installed")
     echo Checking for libssl-dev: $PKG_LIBSSL_DEV
     if [ "" == "$PKG_LIBSSL_DEV" ]; then
@@ -57,15 +56,15 @@ while getopts ":n" opt; do
       sudo apt-get --force-yes --yes remove apt-listchanges
     fi
 
-	sudo $PIP_PATH install --upgrade pip
-	sudo $PIP_PATH install --upgrade setuptools
-	sudo $PIP_PATH install pycrypto
-	sudo $PIP_PATH install cryptography
-	sudo $PIP_PATH install packaging
-	sudo $PIP_PATH install appdirs
-	sudo $PIP_PATH install six
-	sudo $PIP_PATH install fabric
-    
+    sudo pip install --upgrade pip
+    sudo pip install --upgrade setuptools
+    sudo pip install pycrypto
+    sudo pip install cryptography
+    sudo pip install packaging
+    sudo pip install appdirs
+    sudo pip install six
+    sudo pip install fabric
+
     git clone https://github.com/home-assistant/fabric-home-assistant.git
 
     ( cd /home/$me/fabric-home-assistant && fab deploy_novenv -H localhost 2>&1 | tee installation_report.txt )
@@ -78,7 +77,6 @@ while getopts ":n" opt; do
 done
 
 me=$(whoami)
-PIP_PATH=$(which pip)
 
 sudo apt-get update
 
@@ -124,14 +122,14 @@ if [ "install ok installed" == "$PKG_APT_LISTCHANGES" ]; then
   sudo apt-get --force-yes --yes remove apt-listchanges
 fi
 
-sudo $PIP_PATH install --upgrade pip
-sudo $PIP_PATH install --upgrade setuptools
-sudo $PIP_PATH install pycrypto
-sudo $PIP_PATH install cryptography
-sudo $PIP_PATH install packaging
-sudo $PIP_PATH install appdirs
-sudo $PIP_PATH install six
-sudo $PIP_PATH install fabric
+sudo pip install --upgrade pip
+sudo pip install --upgrade setuptools
+sudo pip install pycrypto
+sudo pip install cryptography
+sudo pip install packaging
+sudo pip install appdirs
+sudo pip install six
+sudo pip install fabric
 
 git clone https://github.com/home-assistant/fabric-home-assistant.git
 
