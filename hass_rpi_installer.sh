@@ -11,7 +11,7 @@ while getopts ":n" opt; do
     n)
 
     me=$(whoami)
-    PIP_PATH=$(which pip)
+    
 
     sudo apt-get update
     
@@ -57,14 +57,14 @@ while getopts ":n" opt; do
       sudo apt-get --force-yes --yes remove apt-listchanges
     fi
 
-	sudo $PIP_PATH install --upgrade pip
-	sudo $PIP_PATH install --upgrade setuptools
-	sudo $PIP_PATH install pycrypto
-	sudo $PIP_PATH install cryptography
-	sudo $PIP_PATH install packaging
-	sudo $PIP_PATH install appdirs
-	sudo $PIP_PATH install six
-	sudo $PIP_PATH install fabric
+	sudo pip install --upgrade pip
+	sudo pip install --upgrade setuptools
+	sudo pip install pycrypto
+	sudo pip install cryptography
+	sudo pip install packaging
+	sudo pip install appdirs
+	sudo pip install six
+	sudo pip install fabric
     
     git clone https://github.com/home-assistant/fabric-home-assistant.git
 
@@ -78,7 +78,7 @@ while getopts ":n" opt; do
 done
 
 me=$(whoami)
-PIP_PATH=$(which pip)
+
 
 sudo apt-get update
 
@@ -124,14 +124,14 @@ if [ "install ok installed" == "$PKG_APT_LISTCHANGES" ]; then
   sudo apt-get --force-yes --yes remove apt-listchanges
 fi
 
-sudo $PIP_PATH install --upgrade pip
-sudo $PIP_PATH install --upgrade setuptools
-sudo $PIP_PATH install pycrypto
-sudo $PIP_PATH install cryptography
-sudo $PIP_PATH install packaging
-sudo $PIP_PATH install appdirs
-sudo $PIP_PATH install six
-sudo $PIP_PATH install fabric
+sudo pip install --upgrade pip
+sudo pip install --upgrade setuptools
+sudo pip install pycrypto
+sudo pip install cryptography
+sudo pip install packaging
+sudo pip install appdirs
+sudo pip install six
+sudo pip install fabric
 
 git clone https://github.com/home-assistant/fabric-home-assistant.git
 
