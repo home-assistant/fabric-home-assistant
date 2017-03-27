@@ -7,6 +7,8 @@ The [Raspberry Pi All-In-One Installer](https://github.com/home-assistant/fabric
 
 The only requirement is that you have a Raspberry Pi with a fresh installation of [Raspbian](https://www.raspberrypi.org/downloads/raspbian/) connected to your network.
 
+[Enable SSH on the Raspberry Pi](https://www.raspberrypi.org/blog/a-security-update-for-raspbian-pixel/) for the procedure to complete. Best to do this when you write the SD card or after initial boot before you follow the rest of this procedure.
+
 *  Login to Raspberry Pi. For example with `ssh pi@your_raspberry_pi_ip`
 *  Run the following command
 
