@@ -278,6 +278,7 @@ mqtt:
 """
     with cd("/etc/systemd/system/"):
         put("home-assistant.service", "home-assistant.service", use_sudo=True)
+        put("ozwcp.service", "ozwcp.service", use_sudo=True)
     with settings(sudo_user='homeassistant'):
         sudo("/srv/homeassistant/homeassistant_venv/bin/hass --script ensure_config --config /home/homeassistant/.homeassistant")
 
