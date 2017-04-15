@@ -131,7 +131,7 @@ def setup_users():
 
 def install_syscore():
     """ Download and install Host Dependencies. """
-    sudo("aptitude install -y build - essential")
+    sudo("aptitude install -y build-essential")
     sudo("aptitude install -y python-pip")
     sudo("aptitude install -y python-dev")
     sudo("aptitude install -y python3")
