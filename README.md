@@ -43,13 +43,6 @@ The All-In-One Installer script will do the following automatically:
 *  Add Home Assistant to systemd services to start at boot
 
 
-To upgrade the All-In-One setup:
-
-*  Login to Raspberry Pi ```ssh pi@your_raspberry_pi_ip```
-*  Change to *homeassistant* user `sudo su -s /bin/bash homeassistant`
-*  Change to virtual enviroment `source /srv/homeassistant/homeassistant_venv/bin/activate`
-*  Update HA `pip3 install --upgrade homeassistant`
-
 To change the MQTT default password: 
 
 *  Login to Raspberry Pi `ssh pi@your_raspberry_pi_ip`
