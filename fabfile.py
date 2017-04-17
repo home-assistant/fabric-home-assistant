@@ -286,9 +286,9 @@ def setup_openzwave_controlpanel():
             put("Makefile", "Makefile", use_sudo=True)
             sudo("make")
             if pi_hardware == "armv7l":
-                sudo("ln -sd /srv/homeassistant/homeassistant_venv/lib/python3.4/site-packages/libopenzwave-0.3.2-py3.4-linux-armv7l.egg/config")
+                sudo("ln -sd /srv/homeassistant/homeassistant_venv/lib/python3.4/site-packages/libopenzwave-0.3.3-py3.4-linux-armv7l.egg/config")
             else:
-                sudo("ln -sd /srv/homeassistant/homeassistant_venv/lib/python3.4/site-packages/libopenzwave-0.3.2-py3.4-linux-armv**6**l.egg/config")
+                sudo("ln -sd /srv/homeassistant/homeassistant_venv/lib/python3.4/site-packages/libopenzwave-0.3.3-py3.4-linux-armv**6**l.egg/config")
         sudo("chown -R homeassistant:homeassistant /srv/homeassistant/src/open-zwave-control-panel")
 
 def setup_services():
