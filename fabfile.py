@@ -256,7 +256,7 @@ def setup_openzwave():
     """ Activate Virtualenv, Install python-openzwave"""
     sudo("source /srv/homeassistant/homeassistant_venv/bin/activate && pip3 install --upgrade cython==0.24.1", user="homeassistant")
     with cd("/srv/homeassistant/src"):
-        sudo("git clone --branch v0.3.1 https://github.com/OpenZWave/python-openzwave.git", user="homeassistant")
+        sudo("git clone --branch v0.3.3 https://github.com/OpenZWave/python-openzwave.git", user="homeassistant")
         with cd("python-openzwave"):
             sudo("git checkout python3", user="homeassistant")
             sudo("source /srv/homeassistant/homeassistant_venv/bin/activate && make build", user="homeassistant")
